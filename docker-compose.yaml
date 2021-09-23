@@ -1,0 +1,71 @@
+version: '3.8'
+services:
+    motor_push:
+      build:
+        context: ${PWD}
+        dockerfile: Dockerfile
+      environment:
+        - APP_NAME=motor-push
+        - PORT=8000
+        - DB_HOST=db
+      restart: on-failure
+      command: [ "npm", "run", "start.dev" ]
+      volumes:
+        - ${PWD}/dist:/usr/src/app/dist
+      ports:
+        - 8000:8000
+      networks:
+        - application
+      depends_on:
+        - db
+
+    motor_mailing:
+      build:
+        context: ${PWD}
+        dockerfile: Dockerfile
+      environment:
+        - APP_NAME=motor-mailing
+        - PORT=8001
+        - DB_HOST=db
+      restart: on-failure
+      command: [ "npm", "run", "start.dev" ]
+      volumes:
+        - ${PWD}/dist:/usr/src/app/dist
+      ports:
+        - 8001:8001
+      networks:
+        - application
+      depends_on:
+        - db
+
+    db:
+      image: mariadb
+      restart: on-failure
+      environment:
+        - MYSQL_DATABASE=${DB_NAME}
+        - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+      volumes:
+        - ${PWD}/deploy/motor-push/database/motor_push.sql:/docker-entrypoint-initdb.d
+        - database:/var/lib/mysql
+      ports:
+        - 3306:3306
+      networks:
+        - application
+        - admin
+
+    adminer:
+      image: adminer
+      restart: on-failure
+      ports:
+        - 8080:8080
+      networks:
+        - admin
+      depends_on:
+        - db
+
+volumes:
+  database:
+
+networks:
+  application:
+  admin:
