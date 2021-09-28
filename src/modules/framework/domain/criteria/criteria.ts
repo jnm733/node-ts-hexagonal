@@ -1,4 +1,4 @@
-import {ICriteria, ICriteriaOrder, orderDirection} from "./iCriteria";
+import {ICriteria, ICriteriaOrder, orderDirection} from "@/framework/domain/criteria/iCriteria";
 
 export default class Criteria implements ICriteria{
 

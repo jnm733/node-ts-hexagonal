@@ -1,6 +1,6 @@
-import IDomainValidator, {IDomainValidatorResult, validatorNumericTypes} from "@/framework/domain/validation/iDomainValidator";
-
 var validator = require('validator');
+
+import IDomainValidator, {IDomainValidatorResult, validatorNumericTypes} from "@/framework/domain/validation/iDomainValidator";
 
 export default class ValidatorJS implements IDomainValidator {
 

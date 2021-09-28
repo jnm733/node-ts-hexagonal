@@ -1,5 +1,4 @@
 import {Request, Response} from "express";
-
 const os = require("os");
 
 export default class SystemController {

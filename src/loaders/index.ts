@@ -3,7 +3,7 @@ import SequelizeLoader from "./sequelize";
 import dependencyInjector from "./dependencyInjector";
 import jobs from "./jobs";
 import queues from "./queues";
-import Server from "./server";
+import ExpressServer from "./express";
 
 export default class AppLoader {
 
@@ -29,7 +29,7 @@ export default class AppLoader {
             case APP_TYPES.express:
 
                 console.log("[AppLoader]", "Starting Web Server APP");
-                const server = new Server(configuration);
+                const server = new ExpressServer(configuration);
                 await server.start();
 
                 break;

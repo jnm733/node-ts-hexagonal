@@ -2,7 +2,7 @@
 import path = require('path');
 import * as dotenv from "dotenv";
 import os from "os";
-import {getBoolean} from "@/framework/domain/helpers/strings";
+import {getBoolean} from "../utils/parseUtils";
 
 export enum DB_DRIVER {
     mysql = 1,

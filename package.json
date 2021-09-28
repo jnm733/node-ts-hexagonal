@@ -1,7 +1,7 @@
 {
   "name": "motor-services",
   "version": "1.0.0",
-  "description": "Motor.es Web Services",
+  "description": "Hexagonal Architecture in Node.js with TypeScript",
   "main": "index.js",
   "scripts": {
     "start": "node dist/index",
@@ -23,7 +23,8 @@
   },
   "homepage": "https://github.com/jnm733/node-ts-hexagonal#readme",
   "_moduleAliases": {
-    "@/framework": "dist/modules/framework"
+    "@/framework": "dist/modules/framework",
+    "@/notifications": "dist/modules/notifications"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
@@ -36,6 +37,7 @@
     "mysql2": "^2.3.0",
     "reflect-metadata": "^0.1.13",
     "sequelize": "^6.6.5",
+    "ts-node-dev": "^1.1.8",
     "typedi": "^0.10.0",
     "validator": "^13.6.0",
     "winston": "^3.3.3"

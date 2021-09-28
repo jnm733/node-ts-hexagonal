@@ -1,4 +1,5 @@
 import {Container} from "typedi";
+
 import {ICriteria, IListQueryResult} from "@/framework/domain/criteria/iCriteria";
 
 export default class SequelizeRepository<T> {

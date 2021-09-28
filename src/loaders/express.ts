@@ -3,10 +3,10 @@ import express = require('express');
 import IConfiguration from "../config";
 const bodyParser = require('body-parser');
 import cors from 'cors';
-import routes from './router';
+import routes from '@/framework/infraestructure/router/express';
 import jobs from './jobs';
 
-export default class Server {
+export default class ExpressServer {
 
     public app: express.Application;
     public configuration: IConfiguration;
@@ -121,7 +121,7 @@ export default class Server {
         this.app.use(cors({origin: 'https://www.motor.es'}));
 
         //Loading routes
-        this.app.use(routes(this.configuration));
+        this.app.use(routes());
 
         //Loading crons
         if (enableCron) {

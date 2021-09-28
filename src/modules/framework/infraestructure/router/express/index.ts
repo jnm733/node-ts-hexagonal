@@ -1,11 +1,21 @@
 import { Router } from 'express';
-import SystemController from "./systemController";
-const router = Router();
 
-export default (app: Router, prefix?: string) => {
+import apiV1 from "@/framework/infraestructure/router/express/api/v1";
+import health from "@/framework/infraestructure/router/express/system/health";
+
+export default () => {
+    const mainRouter = Router();
+
+    /** API **/
+    let apiRouter = Router();
+
+    /** V1 **/
+    apiRouter.use('/v1', apiV1());
+
+    mainRouter.use('/api', apiRouter);
 
     /** System **/
-    app.use('/health', router);
-    router.get('/live', SystemController.live);
+    mainRouter.use('/health', health());
 
-};
+    return mainRouter
+}
