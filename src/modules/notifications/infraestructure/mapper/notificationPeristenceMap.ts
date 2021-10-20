@@ -1,8 +1,8 @@
-import IMapper from "@/framework/domain/mapper/iMapper";
+import {IPersistenceMapper} from "@/framework/domain/mapper/iMapper";
 import Notification from "@/notifications/domain/models/notification";
 import IDomainValidator from "@/framework/domain/validation/iDomainValidator";
 
-export default class NotificationMap implements IMapper<Notification> {
+export default class NotificationPeristenceMap implements IPersistenceMapper<Notification> {
 
     private domainValidator: IDomainValidator;
 
@@ -10,7 +10,7 @@ export default class NotificationMap implements IMapper<Notification> {
         this.domainValidator = domainValidator;
     }
 
-    public persistenceToDomain (raw: any): Notification {
+    public toDomain (raw: any): Notification {
 
         try {
             const notification = Notification.create({
@@ -36,7 +36,7 @@ export default class NotificationMap implements IMapper<Notification> {
         }
     }
 
-    public domainToPersistence (notification: Notification): any {
+    public toPersistence (notification: Notification): any {
 
         try {
 
@@ -59,33 +59,5 @@ export default class NotificationMap implements IMapper<Notification> {
             console.error('[NotificationMap]', 'Error on domainToPersistence', e.message);
             throw (e);
         }
-    }
-
-    public dTOToDomain (raw: any): Notification {
-
-        try {
-            const notification = Notification.create({
-                idUser: raw.id_user,
-                title: raw.title,
-                body: raw.body,
-                icon: raw.icon,
-                image: raw.image,
-                urlRedirect: raw.url_redirect,
-                utmSource: raw.utm_source,
-                utmMedium: raw.utm_medium,
-                utmCampaign: raw.utm_campaign,
-            }, this.domainValidator);
-
-            return notification;
-
-        } catch (e) {
-            console.error('[NotificationMap]', 'Error on dTOToDomain', e.message);
-            throw (e);
-        }
-    }
-
-    public domainToDTO (notification: Notification): any {
-
-        return this.domainToPersistence(notification);
     }
 }

@@ -1,5 +1,5 @@
 import INotificationRepository from "@/notifications/domain/repositories/iNotificationRepository";
-import IMapper from "@/framework/domain/mapper/iMapper";
+import {IDTOMapper} from "@/framework/domain/mapper/iMapper";
 import Notification from "@/notifications/domain/models/notification";
 import {ICriteria, IListQueryResult} from "@/framework/domain/criteria/iCriteria";
 
@@ -7,18 +7,18 @@ import {ICriteria, IListQueryResult} from "@/framework/domain/criteria/iCriteria
 export default class NotificationsCrud {
 
     private repository: INotificationRepository;
-    private mapper: IMapper<Notification>;
+    private dTOMapper: IDTOMapper<Notification>;
 
-    public constructor(repository: INotificationRepository, mapper: IMapper<Notification>) {
+    public constructor(repository: INotificationRepository, dTOMapper: IDTOMapper<Notification>) {
         this.repository = repository;
-        this.mapper = mapper;
+        this.dTOMapper = dTOMapper;
     }
 
     public async get(criteria: ICriteria): Promise<IListQueryResult<Notification>> {
 
         return await this.repository.paginateNotifications(criteria)
             .then((result: IListQueryResult<Notification>) => {
-                result.rows = result.rows.map((x) => this.mapper.domainToDTO(x));
+                result.rows = result.rows.map((x) => this.dTOMapper.toDTO(x));
                 return result;
             }).catch((err) => {
                 return Promise.reject(err);
@@ -32,7 +32,7 @@ export default class NotificationsCrud {
             .then((result: Notification) => {
                 if (!result)
                     return Promise.reject('No se encuentra la notificación');
-                return this.mapper.domainToDTO(result);
+                return this.dTOMapper.toDTO(result);
             }).catch((err) => {
                 return Promise.reject(err);
             });
@@ -42,11 +42,11 @@ export default class NotificationsCrud {
 
         try {
 
-            let notification: Notification = this.mapper.dTOToDomain(params);
+            let notification: Notification = this.dTOMapper.toDomain(params);
 
             return await this.repository.saveNotification(notification)
                 .then((result: Notification) => {
-                    return this.mapper.domainToDTO(result);
+                    return this.dTOMapper.toDTO(result);
                 }).catch((err) => {
                     return Promise.reject(err);
                 });

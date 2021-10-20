@@ -1,7 +1,10 @@
 
-export default interface IMapper<T> {
-    persistenceToDomain (raw: any): T;
-    domainToPersistence (t: T): any;
-    dTOToDomain (raw: any): T;
-    domainToDTO (t: T): any;
+export interface IPersistenceMapper<DomainEntity> {
+    toDomain(persistence: any): DomainEntity;
+    toPersistence(domain: DomainEntity): any;
+}
+
+export interface IDTOMapper<DomainEntity> {
+    toDomain (dto: any): DomainEntity;
+    toDTO (domain: DomainEntity): any;
 }

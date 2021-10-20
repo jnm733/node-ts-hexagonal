@@ -3,15 +3,15 @@ const { DataTypes } = require("sequelize");
 import SequelizeRepository from "@/framework/infraestructure/persistence/sequelize/sequelizeRepository";
 import Notification from "@/notifications/domain/models/notification";
 import INotificationRepository from "../../domain/repositories/iNotificationRepository";
-import IMapper from "@/framework/domain/mapper/iMapper";
+import {IPersistenceMapper} from "@/framework/domain/mapper/iMapper";
 import Criteria from "@/framework/domain/criteria/criteria";
 import {IListQueryResult} from "@/framework/domain/criteria/iCriteria";
 
 export default class NotificationRepositorySequelize extends SequelizeRepository<Notification> implements INotificationRepository {
 
-    notificationsMapper: IMapper<Notification>;
+    persistenceMapper: IPersistenceMapper<Notification>;
 
-    constructor(modelMapper: IMapper<Notification>) {
+    constructor(persistenceMapper: IPersistenceMapper<Notification>) {
 
         super(Notification.name, "notificaciones", {
             id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
@@ -26,14 +26,14 @@ export default class NotificationRepositorySequelize extends SequelizeRepository
             utm_campaign: {type: DataTypes.TEXT},
         }, true);
 
-        this.notificationsMapper = modelMapper;
+        this.persistenceMapper = persistenceMapper;
 
     }
 
     public async paginateNotifications(criteria: Criteria): Promise<IListQueryResult<Notification>> {
         return await this.paginateByCriteria(criteria)
             .then((result) => {
-                result.rows = result.rows.map((x) => this.notificationsMapper.persistenceToDomain(x));
+                result.rows = result.rows.map((x) => this.persistenceMapper.toDomain(x));
                 return result;
             });
     }
@@ -41,14 +41,14 @@ export default class NotificationRepositorySequelize extends SequelizeRepository
     public async findNotification(id: string): Promise<Notification|undefined> {
         return await this.findByPk(id)
             .then((notification) => {
-                return (notification) ? this.notificationsMapper.persistenceToDomain(notification) : undefined;
+                return (notification) ? this.persistenceMapper.toDomain(notification) : undefined;
             });
     }
 
     public async saveNotification(notification: Notification): Promise<Notification> {
-        return await this.insert(this.notificationsMapper.domainToPersistence(notification))
+        return await this.insert(this.persistenceMapper.toPersistence(notification))
             .then((notification) => {
-                return this.notificationsMapper.persistenceToDomain(notification);
+                return this.persistenceMapper.toDomain(notification);
             });
     }
 

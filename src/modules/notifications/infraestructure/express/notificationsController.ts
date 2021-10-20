@@ -2,14 +2,14 @@ import {Request, Response} from "express";
 import { Container } from 'typedi';
 import {validationResult} from "express-validator";
 
-import NotificationMap from "@/notifications/infraestructure/mapper/notificationMap";
+import {IDTOMapper} from "@/framework/domain/mapper/iMapper";
+import NotificationDTOMap from "@/notifications/infraestructure/mapper/notificationDTOMap";
 import NotificationsCrud from "@/notifications/application/notificationsCrud";
 import INotificationRepository from "@/notifications/domain/repositories/iNotificationRepository";
 import Criteria from "@/framework/domain/criteria/criteria";
 import {IListQueryResult, orderDirection} from "@/framework/domain/criteria/iCriteria";
 import Notification from "@/notifications/domain/models/notification";
 import IDomainValidator from "@/framework/domain/validation/iDomainValidator";
-import IMapper from "@/framework/domain/mapper/iMapper";
 
 export default class NotificationsController {
 
@@ -17,7 +17,7 @@ export default class NotificationsController {
 
         let repository: INotificationRepository = Container.get('notificationRepository');
         let domainValidator: IDomainValidator = Container.get('domainValidator');
-        let mapper: IMapper<Notification> = new NotificationMap(domainValidator);
+        let dTOmapper: IDTOMapper<Notification> = new NotificationDTOMap(domainValidator);
 
         let query = req.query as {[key: string]: string};
 
@@ -29,7 +29,7 @@ export default class NotificationsController {
             }
         }
 
-        return await new NotificationsCrud(repository, mapper).get(criteria)
+        return await new NotificationsCrud(repository, dTOmapper).get(criteria)
             .then((result: IListQueryResult<Notification>) => {
                 return res.json({
                     ok: true,
@@ -46,9 +46,9 @@ export default class NotificationsController {
 
         let repository: INotificationRepository = Container.get('notificationRepository');
         let domainValidator: IDomainValidator = Container.get('domainValidator');
-        let mapper: IMapper<Notification> = new NotificationMap(domainValidator);
+        let dTOmapper: IDTOMapper<Notification> = new NotificationDTOMap(domainValidator);
 
-        return await new NotificationsCrud(repository, mapper).find(req.params.id)
+        return await new NotificationsCrud(repository, dTOmapper).find(req.params.id)
             .then((notification: Notification) => {
                 return res.json({
                     ok: true,
@@ -65,7 +65,7 @@ export default class NotificationsController {
 
         let repository: INotificationRepository = Container.get('notificationRepository');
         let domainValidator: IDomainValidator = Container.get('domainValidator');
-        let mapper: IMapper<Notification> = new NotificationMap(domainValidator);
+        let dTOmapper: IDTOMapper<Notification> = new NotificationDTOMap(domainValidator);
 
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -75,7 +75,7 @@ export default class NotificationsController {
             });
         }
 
-        return await new NotificationsCrud(repository, mapper).save(req.body)
+        return await new NotificationsCrud(repository, dTOmapper).save(req.body)
             .then((notification: Notification) => {
                 return res.json({
                     ok: true,
@@ -94,7 +94,7 @@ export default class NotificationsController {
 
         let repository: INotificationRepository = Container.get('notificationRepository');
         let domainValidator: IDomainValidator = Container.get('domainValidator');
-        let mapper: IMapper<Notification> = new NotificationMap(domainValidator);
+        let dTOmapper: IDTOMapper<Notification> = new NotificationDTOMap(domainValidator);
 
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -104,7 +104,7 @@ export default class NotificationsController {
             });
         }
 
-        return await new NotificationsCrud(repository, mapper).update(req.params.id, req.body)
+        return await new NotificationsCrud(repository, dTOmapper).update(req.params.id, req.body)
             .then((notification: Notification) => {
                 return res.json({
                     ok: true,
