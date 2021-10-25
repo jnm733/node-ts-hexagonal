@@ -9,6 +9,7 @@ import INotificationRepository from "@/notifications/domain/repositories/iNotifi
 import Criteria from "@/framework/domain/criteria/criteria";
 import {IListQueryResult, orderDirection} from "@/framework/domain/criteria/iCriteria";
 import Notification from "@/notifications/domain/models/notification";
+import INotificationDTO from "@/notifications/domain/dtos/iNotificationDTO";
 import IDomainValidator from "@/framework/domain/validation/iDomainValidator";
 
 export default class NotificationsController {
@@ -17,7 +18,7 @@ export default class NotificationsController {
 
         let repository: INotificationRepository = Container.get('notificationRepository');
         let domainValidator: IDomainValidator = Container.get('domainValidator');
-        let dTOmapper: IDTOMapper<Notification> = new NotificationDTOMap(domainValidator);
+        let dTOmapper: IDTOMapper<Notification, INotificationDTO> = new NotificationDTOMap(domainValidator);
 
         let query = req.query as {[key: string]: string};
 
@@ -30,7 +31,7 @@ export default class NotificationsController {
         }
 
         return await new NotificationsCrud(repository, dTOmapper).get(criteria)
-            .then((result: IListQueryResult<Notification>) => {
+            .then((result: IListQueryResult<INotificationDTO>) => {
                 return res.json({
                     ok: true,
                     data: result,
@@ -46,10 +47,10 @@ export default class NotificationsController {
 
         let repository: INotificationRepository = Container.get('notificationRepository');
         let domainValidator: IDomainValidator = Container.get('domainValidator');
-        let dTOmapper: IDTOMapper<Notification> = new NotificationDTOMap(domainValidator);
+        let dTOmapper: IDTOMapper<Notification, INotificationDTO> = new NotificationDTOMap(domainValidator);
 
         return await new NotificationsCrud(repository, dTOmapper).find(req.params.id)
-            .then((notification: Notification) => {
+            .then((notification: INotificationDTO) => {
                 return res.json({
                     ok: true,
                     data: notification,
@@ -65,7 +66,7 @@ export default class NotificationsController {
 
         let repository: INotificationRepository = Container.get('notificationRepository');
         let domainValidator: IDomainValidator = Container.get('domainValidator');
-        let dTOmapper: IDTOMapper<Notification> = new NotificationDTOMap(domainValidator);
+        let dTOmapper: IDTOMapper<Notification, INotificationDTO> = new NotificationDTOMap(domainValidator);
 
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -76,7 +77,7 @@ export default class NotificationsController {
         }
 
         return await new NotificationsCrud(repository, dTOmapper).save(req.body)
-            .then((notification: Notification) => {
+            .then((notification: INotificationDTO) => {
                 return res.json({
                     ok: true,
                     data: notification,
@@ -94,7 +95,7 @@ export default class NotificationsController {
 
         let repository: INotificationRepository = Container.get('notificationRepository');
         let domainValidator: IDomainValidator = Container.get('domainValidator');
-        let dTOmapper: IDTOMapper<Notification> = new NotificationDTOMap(domainValidator);
+        let dTOmapper: IDTOMapper<Notification, INotificationDTO> = new NotificationDTOMap(domainValidator);
 
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -105,7 +106,7 @@ export default class NotificationsController {
         }
 
         return await new NotificationsCrud(repository, dTOmapper).update(req.params.id, req.body)
-            .then((notification: Notification) => {
+            .then((notification: INotificationDTO) => {
                 return res.json({
                     ok: true,
                     data: notification,

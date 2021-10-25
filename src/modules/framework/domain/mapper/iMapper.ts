@@ -4,7 +4,7 @@ export interface IPersistenceMapper<DomainEntity> {
     toPersistence(domain: DomainEntity): any;
 }
 
-export interface IDTOMapper<DomainEntity> {
-    toDomain (dto: any): DomainEntity;
-    toDTO (domain: DomainEntity): any;
+export interface IDTOMapper<DomainEntity, DTOEntity> {
+    toDomain (dto: DTOEntity): DomainEntity;
+    toDTO (domain: DomainEntity): DTOEntity;
 }

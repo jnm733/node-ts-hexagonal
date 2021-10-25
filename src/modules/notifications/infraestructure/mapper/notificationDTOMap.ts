@@ -1,8 +1,9 @@
 import {IDTOMapper} from "@/framework/domain/mapper/iMapper";
 import Notification from "@/notifications/domain/models/notification";
+import INotificationDTO from "@/notifications/domain/dtos/iNotificationDTO";
 import IDomainValidator from "@/framework/domain/validation/iDomainValidator";
 
-export default class NotificationPeristenceMap implements IDTOMapper<Notification> {
+export default class NotificationPeristenceMap implements IDTOMapper<Notification, INotificationDTO> {
 
     private domainValidator: IDomainValidator;
 
@@ -10,7 +11,7 @@ export default class NotificationPeristenceMap implements IDTOMapper<Notificatio
         this.domainValidator = domainValidator;
     }
 
-    public toDomain (raw: any): Notification {
+    public toDomain (raw: INotificationDTO): Notification {
 
         try {
             const notification = Notification.create({
@@ -33,7 +34,7 @@ export default class NotificationPeristenceMap implements IDTOMapper<Notificatio
         }
     }
 
-    public toDTO (notification: Notification): any {
+    public toDTO (notification: Notification): INotificationDTO {
 
         try {
 
