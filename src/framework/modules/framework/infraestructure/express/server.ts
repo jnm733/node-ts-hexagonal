@@ -1,5 +1,6 @@
 import cluster from "cluster";
 import express from 'express';
+import helmet from "helmet";
 import cors from 'cors';
 import { IConfiguration } from "@/framework/modules/framework/infraestructure/config/config";
 const bodyParser = require('body-parser');
@@ -121,6 +122,9 @@ export default class ExpressServer {
 
         //CORS
         this.app.use(cors({origin: 'https://www.motor.es'}));
+
+        //Helmet policies
+        this.app.use(helmet());
 
         //Loading routes
         this.mainRouter.use('/health', healthRoutes());

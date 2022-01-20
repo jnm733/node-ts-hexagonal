@@ -2,7 +2,7 @@
 import path from 'path';
 import * as dotenv from "dotenv";
 import os from "os";
-import {getBoolean} from "@/framework/utils/parseUtils";
+import {getBoolean} from "@/framework/modules/framework/infraestructure/utils/parseUtils";
 
 enum DB_DRIVER {
     mysql = 1,

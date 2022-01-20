@@ -7,6 +7,10 @@
     "url": "git+https://github.com/jnm733/node-ts-hexagonal.git"
   },
   "author": "José Luis Navarro Motos",
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.14.0"
+  },
   "scripts": {
     "dev:notifications:api": "NODE_ENV=development ts-node-dev --ignore-watch node_modules  ./src/notifications/apps/api/index.ts",
     "start:notifications:api": "NODE_ENV=production node  ./dist/src/notifications/apps/api/index.js",
@@ -26,6 +30,7 @@
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-validator": "^6.12.1",
+    "helmet": "^5.0.1",
     "module-alias": "^2.2.2",
     "moment": "^2.29.1",
     "mysql2": "^2.3.0",
@@ -42,6 +47,18 @@
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
     "copyfiles": "^2.4.1",
+    "husky": "^7.0.4",
+    "prettier": "^2.5.1",
     "typescript": "^4.4.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "{src,tests}/**/*.ts": [
+      "prettier --write"
+    ]
   }
 }
