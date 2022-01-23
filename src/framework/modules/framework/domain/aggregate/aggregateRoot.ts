@@ -1,6 +1,6 @@
 import {IDomainEvent} from "@/framework/modules/framework/domain/aggregate/iDomainEvent";
 import IDomainValidator from "@/framework/modules/framework/domain/validation/iDomainValidator";
-import ValidatorJS from "@/framework/modules/framework/infraestructure/validation/validatorjs/validatorJS";
+import ValidatorJS from "@/framework/modules/framework/infrastructure/validation/validatorjs/validatorJS";
 
 export abstract class AggregateRoot {
 

@@ -21,8 +21,8 @@ export default class NotificationPersistenceMap implements IPersistenceMapper<No
                 utmMedium: raw.utm_medium,
                 utmCampaign: raw.utm_campaign,
                 createdAt: raw.createdAt,
-                updatedAt: raw.updatedAt
-            }, raw.id);
+                updatedAt: raw.updatedAt,
+            });
 
             return notification;
 

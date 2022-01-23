@@ -1,12 +1,13 @@
 import { Router } from 'express';
+import PromiseRouter from 'express-promise-router';
 import notifications from '@/notifications/apps/api/routes/notifications';
 
 export default () => {
 
-    const apiV1Router = Router();
+    const router: Router = PromiseRouter();
 
     /** Notifications **/
-    apiV1Router.use('/notifications', notifications());
+    router.use('/notifications', notifications());
 
-    return apiV1Router;
+    return router;
 }

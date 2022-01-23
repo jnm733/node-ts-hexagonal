@@ -4,19 +4,13 @@ import Notification from "@/notifications/modules/notifications/domain/models/no
 
 export default class NotificationsCrud {
 
-    private repository: INotificationRepository;
-
-    public constructor(repository: INotificationRepository) {
-        this.repository = repository;
-    }
+    public constructor(private readonly repository: INotificationRepository) {}
 
     public async get(criteria: ICriteria): Promise<IListQueryResult<Notification>> {
 
         return await this.repository.paginateNotifications(criteria)
             .then((result: IListQueryResult<Notification>) => {
                 return result;
-            }).catch((err) => {
-                return Promise.reject(err);
             });
 
     }
@@ -28,72 +22,47 @@ export default class NotificationsCrud {
                 if (!result)
                     return Promise.reject('No se encuentra la notificación');
                 return result;
-            }).catch((err) => {
-                return Promise.reject(err);
             });
     }
 
     public async save(params: any): Promise<Notification> {
 
-        try {
+        let notification = Notification.create(params);
 
-            let notification = Notification.create(params);
-
-            return await this.repository.saveNotification(notification)
-                .then((result: Notification) => {
-                    //todo Publica evento de dominio
-                    return result;
-                }).catch((err) => {
-                    return Promise.reject(err);
-                });
-        } catch (err) {
-            return Promise.reject(err);
-        }
+        return await this.repository.saveNotification(notification)
+            .then((result: Notification) => {
+                //todo Publica evento de dominio
+                return result;
+            });
 
     }
 
     public async update(id: any, params: any): Promise<Notification> {
 
-        try {
+        return await this.repository.findNotification(id)
+            .then(async (notification: Notification) => {
+                if (!notification)
+                    return Promise.reject('No se encuentra la notificación');
 
-            await this.repository.findNotification(id)
-                .then((notification: Notification) => {
-                    if (!notification)
-                        return Promise.reject('No se encuentra la notificación');
+                return await this.repository.updateNotification(notification);
 
-                    this.repository.updateNotification(notification);
-
-                }).catch((err) => {
-                    return Promise.reject(err);
-                });
-
-        } catch (err) {
-            return Promise.reject(err);
-        }
+            });
 
     }
 
     public async delete(id: any): Promise<boolean> {
 
-        try {
+        return await this.repository.findNotification(id)
+            .then(async (notification: Notification) => {
+                if (!notification)
+                    return Promise.reject('No se encuentra la notificación');
 
-            await this.repository.findNotification(id)
-                .then((notification: Notification) => {
-                    if (!notification)
-                        return Promise.reject('No se encuentra la notificación');
+                return await this.repository.deleteNotification(notification)
+                    .then((res: boolean) => {
+                        return res;
+                    });
 
-                    this.repository.deleteNotification(notification)
-                        .then((res: boolean) => {
-                            return res;
-                        });
-
-                }).catch((err) => {
-                    return Promise.reject(err);
-                });
-
-        } catch (err) {
-            return Promise.reject(err);
-        }
+            });
 
     }
 

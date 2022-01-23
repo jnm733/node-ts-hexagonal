@@ -1,4 +1,4 @@
-import { IConfiguration } from "@/framework/modules/framework/infraestructure/config/config";
+import { IConfiguration } from "@/framework/modules/framework/infrastructure/config/config";
 const { Sequelize } = require('sequelize');
 
 enum IConnectionsModes {
@@ -11,7 +11,7 @@ export default class SequelizeLoader {
     mode: IConnectionsModes;
     connection: any;
 
-    constructor(configuration: IConfiguration) {
+    private constructor(configuration: IConfiguration) {
 
         this.mode = (configuration.dbConfig.dbPool) ? IConnectionsModes.POOL : IConnectionsModes.SINGLE;
 
@@ -35,6 +35,10 @@ export default class SequelizeLoader {
         }
 
         this.connection = new Sequelize(configuration.dbConfig.dbName, configuration.dbConfig.dbUser, configuration.dbConfig.dbPassword, connParams);
+    }
+
+    public static createConnection(configuration: IConfiguration) {
+        return new this(configuration);
     }
 
     public async health() {

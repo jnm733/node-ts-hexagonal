@@ -2,7 +2,7 @@
 import path from 'path';
 import * as dotenv from "dotenv";
 import os from "os";
-import {getBoolean} from "@/framework/modules/framework/infraestructure/utils/parseUtils";
+import {getBoolean} from "@/framework/modules/framework/infrastructure/utils/parseUtils";
 
 enum DB_DRIVER {
     mysql = 1,
@@ -17,7 +17,6 @@ interface IConfiguration {
     staticServer: boolean;
     publicPath: string;
     viewsPath: string;
-    runCrons: boolean;
     dbConfig?: IDBConfiguration;
 }
 
@@ -41,7 +40,6 @@ const default_config: IConfiguration = {
     staticServer: false,
     publicPath: '../assets',
     viewsPath: '../views',
-    runCrons: true,
 };
 
 class Configuration {
@@ -54,7 +52,6 @@ class Configuration {
     public staticServer: boolean;
     public publicPath: string;
     public viewsPath: string;
-    public runCrons: boolean;
     public dbConfig?: IDBConfiguration;
 
     constructor() {
@@ -73,7 +70,6 @@ class Configuration {
         this.publicPath = path.resolve(__dirname,this.publicPath);
         this.viewsPath = process.env.VIEWS_PATH || default_config.viewsPath;
         this.viewsPath = path.resolve(__dirname,this.viewsPath);
-        this.runCrons = getBoolean(process.env.RUN_CRONS || default_config.runCrons);
 
         //Database
         let dbDriver = DB_DRIVER[process.env.DB_DRIVER as any] as unknown as DB_DRIVER || undefined;

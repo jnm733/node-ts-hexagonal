@@ -1,4 +1,4 @@
-import { IConfiguration } from "@/framework/modules/framework/infraestructure/config/config";
+import { IConfiguration } from "@/framework/modules/framework/infrastructure/config/config";
 import winston from 'winston';
 
 export default class WinstonLoader {

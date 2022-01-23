@@ -1,7 +1,10 @@
+import {ContainerBuilder} from 'node-dependency-injection'
+import containerProd from "@/notifications/apps/api/dependencyInjection/prod.config";
 
-import containerProd from "@/notifications/apps/api/dependencyInjection/inversify.prod.config";
+const container = new ContainerBuilder();
 
-const container = containerProd;
+//Production
+containerProd(container);
 
 export default container;
 

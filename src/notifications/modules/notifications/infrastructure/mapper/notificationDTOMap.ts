@@ -1,6 +1,6 @@
 import {IDTOMapper} from "@/framework/modules/framework/domain/mapper/iMapper";
 import Notification from "@/notifications/modules/notifications/domain/models/notification";
-import INotificationDTO from "@/notifications/modules/notifications/infraestructure/dtos/iNotificationDTO";
+import INotificationDTO from "@/notifications/modules/notifications/infrastructure/dtos/iNotificationDTO";
 
 export default class NotificationDTOMap implements IDTOMapper<Notification, INotificationDTO> {
 

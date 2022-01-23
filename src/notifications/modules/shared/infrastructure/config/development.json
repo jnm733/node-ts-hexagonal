@@ -1,0 +1,11 @@
+{
+  "express": {
+    "port": 8000
+  },
+  "db": {
+    "host": "localhost",
+    "name": "motor-push",
+    "port": "3306",
+    "password": ""
+  }
+}

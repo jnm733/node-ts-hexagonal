@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import Router from 'express-promise-router';
 
 import apiV1 from "@/notifications/apps/api/routes/v1";
 

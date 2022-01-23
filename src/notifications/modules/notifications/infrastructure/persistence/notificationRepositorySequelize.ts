@@ -1,6 +1,6 @@
 const { DataTypes } = require("sequelize");
 
-import SequelizeRepository from "@/framework/modules/framework/infraestructure/persistence/sequelize/sequelizeRepository";
+import SequelizeRepository from "@/framework/modules/framework/infrastructure/persistence/sequelize/sequelizeRepository";
 import {IPersistenceMapper} from "@/framework/modules/framework/domain/mapper/iMapper";
 import Criteria from "@/framework/modules/framework/domain/criteria/criteria";
 import {IListQueryResult} from "@/framework/modules/framework/domain/criteria/iCriteria";
