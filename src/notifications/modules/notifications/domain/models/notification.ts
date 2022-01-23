@@ -25,7 +25,7 @@ export interface INotification {
     updatedAt: string
 }
 
-export default class Notification extends AggregateRoot<INotification>{
+export default class Notification extends AggregateRoot{
 
     private _id: number;
     private _idUser: number;

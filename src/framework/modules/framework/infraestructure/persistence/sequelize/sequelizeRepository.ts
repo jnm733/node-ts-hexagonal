@@ -1,6 +1,7 @@
 import {ICriteria, IListQueryResult} from "@/framework/modules/framework/domain/criteria/iCriteria";
+import {AggregateRoot} from "@/framework/modules/framework/domain/aggregate/aggregateRoot";
 
-export default class SequelizeRepository<T> {
+export default abstract class SequelizeRepository<T extends AggregateRoot> {
 
     protected model: any;
 

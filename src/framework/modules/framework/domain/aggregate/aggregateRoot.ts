@@ -2,7 +2,7 @@ import {IDomainEvent} from "@/framework/modules/framework/domain/aggregate/iDoma
 import IDomainValidator from "@/framework/modules/framework/domain/validation/iDomainValidator";
 import ValidatorJS from "@/framework/modules/framework/infraestructure/validation/validatorjs/validatorJS";
 
-export abstract class AggregateRoot<T> {
+export abstract class AggregateRoot {
 
     private _domainEvents: IDomainEvent[] = [];
     protected validator: IDomainValidator = new ValidatorJS();
