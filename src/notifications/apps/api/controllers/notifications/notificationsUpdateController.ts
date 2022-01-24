@@ -1,10 +1,10 @@
 import {Request, Response} from "express";
 
-import {IDTOMapper} from "@/framework/modules/framework/domain/mapper/iMapper";
+import {IDTOMapper} from "@/shared/modules/shared/domain/mapper/iMapper";
 import NotificationsCrud from "@/notifications/modules/notifications/application/notificationsCrud";
 import Notification from "@/notifications/modules/notifications/domain/models/notification";
 import INotificationDTO from "@/notifications/modules/notifications/infrastructure/dtos/iNotificationDTO";
-import {IController} from "@/framework/modules/framework/infrastructure/controllers/iController";
+import {IController} from "@/shared/modules/shared/infrastructure/controllers/iController";
 
 export default class NotificationsUpdateController implements IController{
 

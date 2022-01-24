@@ -1,13 +1,13 @@
 import {Request, Response} from "express";
 
-import {IDTOMapper} from "@/framework/modules/framework/domain/mapper/iMapper";
-import Criteria from "@/framework/modules/framework/domain/criteria/criteria";
-import {IListQueryResult, orderDirection} from "@/framework/modules/framework/domain/criteria/iCriteria";
+import {IDTOMapper} from "@/shared/modules/shared/domain/mapper/iMapper";
+import Criteria from "@/shared/modules/shared/domain/criteria/criteria";
+import {IListQueryResult, orderDirection} from "@/shared/modules/shared/domain/criteria/iCriteria";
 import NotificationsCrud from "@/notifications/modules/notifications/application/notificationsCrud";
 import Notification from "@/notifications/modules/notifications/domain/models/notification";
 import INotificationDTO from "@/notifications/modules/notifications/infrastructure/dtos/iNotificationDTO";
-import {ICriteriaAPI} from "@/framework/modules/framework/domain/criteria/iCriteria";
-import {IController} from "@/framework/modules/framework/infrastructure/controllers/iController";
+import {ICriteriaAPI} from "@/shared/modules/shared/domain/criteria/iCriteria";
+import {IController} from "@/shared/modules/shared/infrastructure/controllers/iController";
 
 export default class NotificationsGetController implements IController{
 

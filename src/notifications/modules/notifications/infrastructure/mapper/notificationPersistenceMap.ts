@@ -1,4 +1,4 @@
-import {IPersistenceMapper} from "@/framework/modules/framework/domain/mapper/iMapper";
+import {IPersistenceMapper} from "@/shared/modules/shared/domain/mapper/iMapper";
 import Notification from "@/notifications/modules/notifications/domain/models/notification";
 
 export default class NotificationPersistenceMap implements IPersistenceMapper<Notification> {

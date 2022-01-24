@@ -1,0 +1,14 @@
+{
+  "express": {
+    "port": 8000
+  },
+  "mysql": {
+    "host": "localhost",
+    "name": "motor-push",
+    "port": "3306",
+    "user": "root",
+    "password": "root",
+    "pool": true,
+    "poolLimit": 10
+  }
+}

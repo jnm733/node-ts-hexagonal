@@ -1,4 +1,4 @@
-import {ICriteria, IListQueryResult} from "@/framework/modules/framework/domain/criteria/iCriteria";
+import {ICriteria, IListQueryResult} from "@/shared/modules/shared/domain/criteria/iCriteria";
 import INotificationRepository from "@/notifications/modules/notifications/domain/repositories/iNotificationRepository";
 import Notification from "@/notifications/modules/notifications/domain/models/notification";
 

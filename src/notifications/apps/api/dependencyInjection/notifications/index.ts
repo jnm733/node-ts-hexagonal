@@ -45,7 +45,7 @@ export default (container: ContainerBuilder) => {
     //Repositories
     container
         .register('Notifications.Domain.Repositories.NotificationRepository', NotificationRepositorySequelize)
-        .addArgument(new Reference('Framework.Infrastructure.Sequelize'))
+        .addArgument(new Reference('Shared.Infrastructure.Sequelize'))
         .addArgument(new Reference('Notifications.Infrastructure.Mappers.NotificationPersistenceMap'));
 
     //Use Cases

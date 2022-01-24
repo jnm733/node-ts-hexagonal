@@ -21,14 +21,13 @@
     "build:clean": "rm -r dist; exit 0"
   },
   "_moduleAliases": {
-    "@/framework": "dist/src/framework",
+    "@/shared": "dist/src/shared",
     "@/notifications": "dist/src/notifications"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
     "convict": "^6.2.1",
     "cors": "^2.8.5",
-    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-promise-router": "^4.1.1",
     "express-validator": "^6.12.1",

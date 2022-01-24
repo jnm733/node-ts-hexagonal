@@ -1,5 +1,5 @@
-import {IDomainValidatorResult} from "@/framework/modules/framework/domain/validation/iDomainValidator";
-import {AggregateRoot} from "@/framework/modules/framework/domain/aggregate/aggregateRoot";
+import {IDomainValidatorResult} from "@/shared/modules/shared/domain/validation/iDomainValidator";
+import {AggregateRoot} from "@/shared/modules/shared/domain/aggregate/aggregateRoot";
 
 export interface INotificationPayload {
     title: string,

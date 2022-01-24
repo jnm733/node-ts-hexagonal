@@ -1,23 +1,24 @@
 require('module-alias/register');
 
-import { IConfiguration, Configuration } from "@/framework/modules/framework/infrastructure/config/config";
-import ExpressServer from "@/framework/modules/framework/infrastructure/express/server";
-import ExpressClusterServer from "@/framework/modules/framework/infrastructure/express/clusterServer";
-import IExpressServer from "@/framework/modules/framework/infrastructure/express/iServer";
+import ExpressServer from "@/shared/modules/shared/infrastructure/express/expressServer";
+import ExpressClusterServer from "@/shared/modules/shared/infrastructure/express/expressClusterServer";
+import IExpressServer from "@/shared/modules/shared/infrastructure/express/iExpressServer";
+import ExpressConfig from "@/shared/modules/shared/infrastructure/express/config/expressConfig";
 
+import container from "@/notifications/apps/api/dependencyInjection";
 import mainRouter from "@/notifications/apps/api/routes"
 
 async function start() {
 
-    //Load config
-    const config: IConfiguration = Configuration.init();
+    //Express config
+    const expressConfig: ExpressConfig = container.get('Shared.Infrastructure.ExpressConfig');
 
     //Init server
     let server: IExpressServer;
-    if (config.numWorkers > 0) {
-        server = new ExpressClusterServer(config, mainRouter());
+    if (expressConfig.numWorkers > 0) {
+        server = new ExpressClusterServer(expressConfig, mainRouter());
     } else {
-        server = new ExpressServer(config, mainRouter());
+        server = new ExpressServer(expressConfig, mainRouter());
     }
 
     //Start server

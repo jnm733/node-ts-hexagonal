@@ -1,4 +1,4 @@
-import {IDTOMapper} from "@/framework/modules/framework/domain/mapper/iMapper";
+import {IDTOMapper} from "@/shared/modules/shared/domain/mapper/iMapper";
 import Notification from "@/notifications/modules/notifications/domain/models/notification";
 import INotificationDTO from "@/notifications/modules/notifications/infrastructure/dtos/iNotificationDTO";
 

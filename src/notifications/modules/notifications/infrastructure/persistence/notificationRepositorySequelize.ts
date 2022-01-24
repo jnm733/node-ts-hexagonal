@@ -1,29 +1,37 @@
 const { DataTypes } = require("sequelize");
 
-import SequelizeRepository from "@/framework/modules/framework/infrastructure/persistence/sequelize/sequelizeRepository";
-import {IPersistenceMapper} from "@/framework/modules/framework/domain/mapper/iMapper";
-import Criteria from "@/framework/modules/framework/domain/criteria/criteria";
-import {IListQueryResult} from "@/framework/modules/framework/domain/criteria/iCriteria";
+import SequelizeRepository from "@/shared/modules/shared/infrastructure/persistence/sequelize/sequelizeRepository";
+import {IPersistenceMapper} from "@/shared/modules/shared/domain/mapper/iMapper";
+import Criteria from "@/shared/modules/shared/domain/criteria/criteria";
+import {IListQueryResult} from "@/shared/modules/shared/domain/criteria/iCriteria";
 import Notification from "@/notifications/modules/notifications/domain/models/notification";
 import INotificationRepository from "@/notifications/modules/notifications/domain/repositories/iNotificationRepository";
 
 export default class NotificationRepositorySequelize extends SequelizeRepository<Notification> implements INotificationRepository {
 
-    constructor(protected sequelize: any, private persistenceMapper: IPersistenceMapper<Notification>) {
+    constructor(sequelize: any, private persistenceMapper: IPersistenceMapper<Notification>) {
+        super(sequelize);
+    }
 
-        super(sequelize, Notification.name, "notificaciones", {
-            id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-            id_user: {type: DataTypes.INTEGER},
-            title: {type: DataTypes.TEXT},
-            body: {type: DataTypes.TEXT},
-            icon: {type: DataTypes.TEXT},
-            image: {type: DataTypes.TEXT},
-            url_redirect: {type: DataTypes.TEXT},
-            utm_source: {type: DataTypes.TEXT},
-            utm_medium: {type: DataTypes.TEXT},
-            utm_campaign: {type: DataTypes.TEXT},
-        }, true);
+    protected entitySchema() {
 
+        return {
+            modelName: Notification.name,
+            tableName: 'notificaciones',
+            schema: {
+                id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+                id_user: {type: DataTypes.INTEGER},
+                title: {type: DataTypes.TEXT},
+                body: {type: DataTypes.TEXT},
+                icon: {type: DataTypes.TEXT},
+                image: {type: DataTypes.TEXT},
+                url_redirect: {type: DataTypes.TEXT},
+                utm_source: {type: DataTypes.TEXT},
+                utm_medium: {type: DataTypes.TEXT},
+                utm_campaign: {type: DataTypes.TEXT}
+            },
+            timestamps: true
+        }
     }
 
     public async paginateNotifications(criteria: Criteria): Promise<IListQueryResult<Notification>> {

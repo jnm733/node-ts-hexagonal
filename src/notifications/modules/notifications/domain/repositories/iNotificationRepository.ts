@@ -1,5 +1,5 @@
-import Criteria from "@/framework/modules/framework/domain/criteria/criteria";
-import {IListQueryResult} from "@/framework/modules/framework/domain/criteria/iCriteria";
+import Criteria from "@/shared/modules/shared/domain/criteria/criteria";
+import {IListQueryResult} from "@/shared/modules/shared/domain/criteria/iCriteria";
 import Notification from "@/notifications/modules/notifications/domain/models/notification";
 
 export default interface INotificationRepository {

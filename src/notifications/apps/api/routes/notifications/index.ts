@@ -1,7 +1,7 @@
 import { Router, Response, Request } from 'express';
 import PromiseRouter from "express-promise-router";
 
-import validateSchemaMiddleware from "@/framework/modules/framework/infrastructure/expresValidator/validatorMiddleware";
+import validateSchemaMiddleware from "@/shared/modules/shared/infrastructure/expresValidator/validatorMiddleware";
 
 import container from "@/notifications/apps/api/dependencyInjection";
 import saveNotification from "@/notifications/apps/api/routes/notifications/validator/saveNotification";

@@ -1,12 +1,12 @@
 import {ContainerBuilder} from 'node-dependency-injection'
 
-import framework from "@/notifications/apps/api/dependencyInjection/framework";
+import infrastructure from "@/notifications/apps/api/dependencyInjection/infrastructure";
 import notifications from "@/notifications/apps/api/dependencyInjection/notifications";
 
 export default (container: ContainerBuilder) => {
 
     //infrastructure
-    framework(container);
+    infrastructure(container);
 
     //Notifications
     notifications(container);
