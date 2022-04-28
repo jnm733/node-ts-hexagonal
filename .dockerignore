@@ -4,3 +4,4 @@ migrations
 .git
 .gitignore
 .idea
+src/*/tests/*

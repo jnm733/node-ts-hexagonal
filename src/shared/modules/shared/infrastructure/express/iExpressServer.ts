@@ -1,5 +1,5 @@
 import express, {Router} from "express";
-import ExpressConfig from "@/shared/modules/shared/infrastructure/express/config/expressConfig";
+import ExpressConfig from "@node-ts-hexagonal/shared/modules/shared/infrastructure/express/config/expressConfig";
 
 export default interface IExpressServer {
 

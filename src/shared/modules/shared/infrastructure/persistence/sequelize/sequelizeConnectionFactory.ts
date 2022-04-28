@@ -1,19 +1,20 @@
-import MysqlConfig from "@/shared/modules/shared/infrastructure/persistence/mysql/mysqlConfig";
 const { Sequelize } = require('sequelize');
+
+import MysqlConfig from "@node-ts-hexagonal/shared/modules/shared/infrastructure/persistence/mysql/mysqlConfig";
 
 enum IConnectionsModes {
     "POOL" = 1,
     "SINGLE" = 2
 }
 
-export default class SequelizeLoader {
+export default class SequelizeConnectionFactory {
 
     mode: IConnectionsModes;
     connection: any;
 
     private constructor(configuration: MysqlConfig) {
 
-        this.mode = (configuration.pool) ? IConnectionsModes.POOL : IConnectionsModes.SINGLE;
+        this.mode = (configuration.numConnections > 1) ? IConnectionsModes.POOL : IConnectionsModes.SINGLE;
 
         let connParams: {[key: string]: any} = {
             dialect: 'mysql',
@@ -23,18 +24,18 @@ export default class SequelizeLoader {
                 multipleStatements: true,
             },
             define: {
-                charset: 'utf8mb4'
+                charset: configuration.charset || 'utf8mb4'
             },
         };
 
         if (this.mode == IConnectionsModes.POOL) {
             connParams.pool = {
-                max: configuration.poolLimit || 10,
+                max: configuration.numConnections || 10,
                 min: 0,
             };
         }
 
-        this.connection = new Sequelize(configuration.name, configuration.user, configuration.password, connParams);
+        this.connection = new Sequelize(configuration.name, configuration.username, configuration.password, connParams);
     }
 
     public static createConnection(configuration: MysqlConfig) {

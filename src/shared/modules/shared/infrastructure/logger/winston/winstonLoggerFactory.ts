@@ -1,14 +1,17 @@
 import winston from 'winston';
 
-export default class WinstonLoader {
+import GlobalConfig from "@node-ts-hexagonal/shared/modules/shared/infrastructure/config/globalConfig";
+import ILogger from "@node-ts-hexagonal/shared/modules/shared/domain/logger/iLogger";
+
+export default class WinstonLoggerFactory implements ILogger {
 
     public logger;
 
-    constructor(configuration: any) {
+    private constructor(config: GlobalConfig) {
 
         const transports = [];
 
-        if (configuration.env === 'development') {
+        if (config.env === 'development') {
             transports.push(
                 new winston.transports.Console()
             );
@@ -40,15 +43,33 @@ export default class WinstonLoader {
         this.logger = logger;
 
         console.log = function(){
+            // @ts-ignore
             return logger.info.apply(logger, arguments)
         }
         console.error = function(){
+            // @ts-ignore
             return logger.error.apply(logger, arguments)
         }
         console.info = function(){
+            // @ts-ignore
             return logger.warn.apply(logger, arguments)
         }
 
     }
 
+    public static createLogger(env: GlobalConfig) {
+        return new this(env);
+    }
+
+    debug(message: string) {
+        this.logger.debug(message);
+    }
+
+    error(message: string | Error) {
+        this.logger.error(message);
+    }
+
+    info(message: string) {
+        this.logger.info(message);
+    }
 }

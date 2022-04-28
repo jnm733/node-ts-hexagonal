@@ -1,6 +1,6 @@
 import Router from 'express-promise-router';
 
-import StatusGetController from "@/shared/modules/shared/infrastructure/express/controllers/statusGetController";
+import StatusGetController from "@node-ts-hexagonal/shared/modules/shared/infrastructure/express/controllers/statusGetController";
 import {Request, Response} from "express";
 
 export default () => {

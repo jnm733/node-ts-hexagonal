@@ -1,7 +1,7 @@
 import {Request, Response} from "express";
 import {validationResult} from "express-validator";
 
-export default function validateSchemaMiddleware(req: Request, res: Response, next: Function) {
+export default function validateSchemaMiddleware(req: Request, res: Response, next: Function): Response {
 
     const errors = validationResult(req);
     if (errors.isEmpty()) {

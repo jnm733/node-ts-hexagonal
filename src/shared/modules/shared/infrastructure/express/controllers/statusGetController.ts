@@ -1,9 +1,9 @@
 import {Request, Response} from "express";
 const os = require("os");
 
-import {IController} from "@/shared/modules/shared/infrastructure/controllers/iController";
+import {IHTTPController} from "@node-ts-hexagonal/shared/modules/shared/infrastructure/controllers/iHTTPController";
 
-export default class StatusGetController implements IController{
+export default class StatusGetController implements IHTTPController{
 
     public async run(req: Request, res: Response): Promise<Response> {
 

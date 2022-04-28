@@ -1,9 +1,9 @@
 import cluster from "cluster";
 import { Router } from 'express';
 
-import ExpressServer from "@/shared/modules/shared/infrastructure/express/expressServer";
-import IExpressServer from "@/shared/modules/shared/infrastructure/express/iExpressServer";
-import ExpressConfig from "@/shared/modules/shared/infrastructure/express/config/expressConfig";
+import ExpressServer from "@node-ts-hexagonal/shared/modules/shared/infrastructure/express/expressServer";
+import IExpressServer from "@node-ts-hexagonal/shared/modules/shared/infrastructure/express/iExpressServer";
+import ExpressConfig from "@node-ts-hexagonal/shared/modules/shared/infrastructure/express/config/expressConfig";
 
 export default class ExpressClusterServer extends ExpressServer implements IExpressServer{
 

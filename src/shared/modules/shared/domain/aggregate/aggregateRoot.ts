@@ -1,30 +1,28 @@
-import {IDomainEvent} from "@/shared/modules/shared/domain/aggregate/iDomainEvent";
-import IDomainValidator from "@/shared/modules/shared/domain/validation/iDomainValidator";
-import ValidatorJS from "@/shared/modules/shared/infrastructure/validation/validatorjs/validatorJS";
+import {Entity} from "@node-ts-hexagonal/shared/modules/shared/domain/aggregate/entity";
+import {DomainEvent} from "@node-ts-hexagonal/shared/modules/shared/domain/aggregate/domainEvent";
 
-export abstract class AggregateRoot {
+export abstract class AggregateRoot<PropsSchema> extends Entity<PropsSchema> {
 
-    private _domainEvents: IDomainEvent[] = [];
-    protected validator: IDomainValidator = new ValidatorJS();
+    private _domainEvents: DomainEvent<any>[] = [];
 
-    get domainEvents(): IDomainEvent[] {
+    get domainEvents(): DomainEvent<any>[] {
         return this._domainEvents;
     }
 
-    protected addDomainEvent(domainEvent: IDomainEvent): void {
+    get pullDomainEvents(): DomainEvent<any>[] {
+        return this._domainEvents.slice();
+    }
+
+    public addDomainEvent(domainEvent: DomainEvent<any>): void {
         this._domainEvents.push(domainEvent);
 
         this.logDomainEventAdded(domainEvent);
     }
 
-    public clearEvents (): void {
-        this._domainEvents.splice(0, this._domainEvents.length);
-    }
-
-    private logDomainEventAdded (domainEvent: IDomainEvent): void {
+    private logDomainEventAdded (domainEvent: DomainEvent<any>): void {
         const thisClass = Reflect.getPrototypeOf(this);
         const domainEventClass = Reflect.getPrototypeOf(domainEvent);
-        console.info(`[Domain Event Created]:`, thisClass.constructor.name, '==>', domainEventClass.constructor.name)
+        console.info(`[Domain Event Created]:`, thisClass!.constructor.name, '==>', domainEventClass!.constructor.name)
     }
 
 }

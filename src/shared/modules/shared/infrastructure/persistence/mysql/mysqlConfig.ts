@@ -1,11 +1,12 @@
 type MysqlConfig = {
     host: string,
     port: number,
-    user: string,
+    username: string,
     password: string,
     name: string,
-    pool?: boolean,
-    poolLimit?: number,
+    numConnections: number,
+    charset: string,
+    dateStrings?: boolean,
 };
 
 export default MysqlConfig;

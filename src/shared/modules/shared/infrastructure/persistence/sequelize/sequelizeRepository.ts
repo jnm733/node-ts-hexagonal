@@ -1,7 +1,8 @@
-import {ICriteria, IListQueryResult} from "@/shared/modules/shared/domain/criteria/iCriteria";
-import {AggregateRoot} from "@/shared/modules/shared/domain/aggregate/aggregateRoot";
+import {AggregateRoot} from "@node-ts-hexagonal/shared/modules/shared/domain/aggregate/aggregateRoot";
+import Criteria from "@node-ts-hexagonal/shared/modules/shared/domain/criteria/criteria";
+import {IPaginateQueryResult} from "@node-ts-hexagonal/shared/modules/shared/domain/criteria/iPaginateQueryResult";
 
-export default abstract class SequelizeRepository<T extends AggregateRoot> {
+export default abstract class SequelizeRepository<T extends AggregateRoot<T>> {
 
     protected model: any;
 
@@ -11,7 +12,7 @@ export default abstract class SequelizeRepository<T extends AggregateRoot> {
 
     protected abstract entitySchema(): { modelName: string, tableName: string, schema: any, timestamps: boolean };
 
-    protected async searchByCriteria(criteria?: ICriteria): Promise<T[]> {
+    protected async searchByCriteria(criteria: Criteria): Promise<T[]> {
         let params: any = this.criteriaToSequelizeMapper(criteria);
 
         return new Promise<any>((resolve, reject) => {
@@ -27,7 +28,7 @@ export default abstract class SequelizeRepository<T extends AggregateRoot> {
 
     }
 
-    protected async paginateByCriteria(criteria?: ICriteria): Promise<IListQueryResult<T>> {
+    protected async paginateByCriteria(criteria: Criteria): Promise<IPaginateQueryResult<T>> {
         let params: any = this.criteriaToSequelizeMapper(criteria);
 
         if (!params.offset)
@@ -61,7 +62,7 @@ export default abstract class SequelizeRepository<T extends AggregateRoot> {
         });
     }
 
-    protected async findByCriteria(criteria: ICriteria): Promise<T|undefined> {
+    protected async findByCriteria(criteria: Criteria): Promise<T|undefined> {
         let params: any = this.criteriaToSequelizeMapper(criteria);
 
         return new Promise<any>((resolve, reject) => {
@@ -76,7 +77,7 @@ export default abstract class SequelizeRepository<T extends AggregateRoot> {
         });
     }
 
-    protected async countByCriteria(criteria: ICriteria): Promise<Number> {
+    protected async countByCriteria(criteria: Criteria): Promise<Number> {
         let params: any = this.criteriaToSequelizeMapper(criteria);
 
         return new Promise<any>((resolve, reject) => {
@@ -98,7 +99,7 @@ export default abstract class SequelizeRepository<T extends AggregateRoot> {
         return new Promise<any>((resolve, reject) => {
 
             this.model.create(T).then(async (result: any) => {
-                let inserted: T = await this.findByPk(result[this.model.primaryKeyAttributes[0]]);
+                let inserted = await this.findByPk(result[this.model.primaryKeyAttributes[0]]);
                 return resolve(inserted);
             }).catch((err: any) => {
                 console.error('[Sequelize]', 'Error on save', err.message);
@@ -139,7 +140,7 @@ export default abstract class SequelizeRepository<T extends AggregateRoot> {
 
     }
 
-    protected criteriaToSequelizeMapper(criteria: ICriteria) {
+    protected criteriaToSequelizeMapper(criteria: Criteria) {
 
         let params: any = {};
 

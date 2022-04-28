@@ -4,9 +4,9 @@ import helmet from "helmet";
 import cors from 'cors';
 const bodyParser = require('body-parser');
 
-import healthRoutes from "@/shared/modules/shared/infrastructure/express/routes/health";
-import IExpressServer from "@/shared/modules/shared/infrastructure/express/iExpressServer";
-import ExpressConfig from "@/shared/modules/shared/infrastructure/express/config/expressConfig";
+import healthRoutes from "@node-ts-hexagonal/shared/modules/shared/infrastructure/express/routes/health";
+import IExpressServer from "@node-ts-hexagonal/shared/modules/shared/infrastructure/express/iExpressServer";
+import ExpressConfig from "@node-ts-hexagonal/shared/modules/shared/infrastructure/express/config/expressConfig";
 
 export default class ExpressServer implements IExpressServer{
 

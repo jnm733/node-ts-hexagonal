@@ -1,26 +1,25 @@
 #Multi Stage para compilación
-FROM node:14 as builder
+FROM --platform=linux/amd64 node:16 as builder
 
 #Seteamos el directorio donde se alojará la app
 WORKDIR /usr/src/app
 
-#Copiamos archivos de dependencias al contenedor
-COPY package*.json ./
-COPY tsconfig*.json ./
+#Copiamos archivos locales al contenedor
+COPY . ./
 
 #Ejecutamos comando para la instalación de las dependencias de desarrollo
 RUN npm install
 
-#Copiamos archivos locales al contenedor
-COPY . ./
-
 #Compilamos
 RUN npm run build
 
+#Instalamos dependencias de producción
+RUN rm -rf ./node_modules
+RUN npm install --production
 
 
-#Partimos de imagen Node 14 como base
-FROM node:14
+#Partimos de imagen Node 16 como base
+FROM --platform=linux/amd64 node:16
 
 #Etiquetas personalizadas para la imagen
 LABEL maintainer="jl.navarro@motor.es"
@@ -34,12 +33,9 @@ WORKDIR /usr/src/app
 #Copiamos archivos de dependencias al contenedor
 COPY package*.json ./
 
-#Ejecutamos comando para la instalación de las dependencias de producción
-RUN npm install --production
+#Cambiamos ruta de los workspaces
+RUN sed -i 's/\.\/src\/\*/\.\/dist\/\*/g' ./package*.json
 
 #Copiamos archivos al contenedor
 COPY --from=builder /usr/src/app/dist/ ./dist/
-COPY --from=builder /usr/src/app/.env ./.env
-
-#Comando para el deploy de la app
-CMD [ "npm", "run", "start" ]
+COPY --from=builder /usr/src/app/node_modules/ ./node_modules
