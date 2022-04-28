@@ -1,0 +1,24 @@
+{
+  "database": {
+    "name": "games",
+    "username": "root",
+    "password": "root"
+  },
+  "express": {
+    "port": 8000,
+    "auth": {
+      "method": "BASIC",
+      "username": "games",
+      "password": "games"
+    }
+  },
+  "rabbitMQ": {
+    "host": "localhost",
+    "port": 5672,
+    "vhost": "/",
+    "user": "guest",
+    "password": "guest",
+    "defaultExchangeName": "games.domain_events",
+    "defaultExchangeType": "topic"
+  }
+}

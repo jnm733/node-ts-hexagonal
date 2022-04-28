@@ -1,0 +1,12 @@
+{
+  "name": "@node-ts-hexagonal/backend",
+  "version": "1.0.0",
+  "description": "Bounded Context of Backend",
+  "scripts": {
+    "dev:api": "NODE_ENV=development NODE_EXEC=ts ts-node-dev -r tsconfig-paths/register apps/api/index.ts",
+    "start:api": "NODE_ENV=production node ../../dist/games/apps/api/index.js"
+  },
+  "dependencies": {
+    "@node-ts-hexagonal/shared": "*"
+  }
+}

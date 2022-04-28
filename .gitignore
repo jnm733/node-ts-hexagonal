@@ -28,8 +28,8 @@ typings/
 # Optional eslint cache
 .eslintcache
 
-# dotenv environment variables file
-.env
+# Production config files
+*production.json
 
 # Build
 dist

@@ -7,6 +7,6 @@ export default interface IExpressServer {
     router: Router;
     configuration: ExpressConfig;
 
-    start(): void;
+    start(): Promise<void>;
 
 }

@@ -33,7 +33,7 @@ export default class ExpressServer implements IExpressServer{
         this.app.set('views', this.configuration.viewsPath);
 
         //CORS
-        this.app.use(cors({origin: 'https://www.motor.es'}));
+        this.app.use(cors({origin: '*'}));
 
         //Helmet policies
         this.app.use(helmet());
