@@ -9,7 +9,7 @@ It implements concepts like repositories, domain models, data mappers, value-obj
 2. Compile project: `npm run build`
 
 ### Project explanation
-This is a simple example app that manage business customers by an API Rest. This project has a purely academic purpose.
 
 #### Project structure
 
+To be continue...
